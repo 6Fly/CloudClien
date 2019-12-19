@@ -1,0 +1,40 @@
+server:
+  port: 8767
+  servlet:
+    context-path: /client
+spring:
+  profiles:
+    active: secure
+  application:
+    name: server-client
+  jmx:
+    enabled: true
+eureka:
+  instance:
+    metadata-map.management.context-path: ${server.servlet.context-path}/actuator
+    hostname: localhost
+    health-check-url-path: /actuator/health
+  client:
+    service-url:
+#      defaultZone: http://admin:123@localhost:8765/eureka/
+      defaultZone: http://localhost:8765/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      # 是否展示健康检查详情
+      show-details: ALWAYS
+logging:
+  level:
+      root: info
+  file: /var/log/sample-boot-application.log
+info:
+  version: @project.version@
+  groupId: @project.groupId@
+  artifactId: @project.artifactId@
+
+
+#eureka.instance.metadata-map.management.context-path=${server.servlet.context-path}/actuator
